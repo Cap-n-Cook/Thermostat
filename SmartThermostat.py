@@ -8,7 +8,7 @@ class SmartThermostat:
 
     def __init__(self):
         # Initialize python dictionary with student ID.
-        self._value_dic = {"patherId" : ""}
+        self._value_dic = {"pantherId" : ""}
         self._temperature = 0
         self._pressure = 0
         self._humidity = 0
@@ -50,7 +50,9 @@ class SmartThermostat:
 
     def send_data(self, endpoint, payload):
         # Create http request object, send data and display result.
-        self._shipper = requests.put(endpoint, data=payload, verify=False)
+
+        headers = {'content-type': 'application/json'}
+        self._shipper = requests.put(endpoint, data=payload, verify=False, headers=headers)
 
         return self._shipper.content
 
