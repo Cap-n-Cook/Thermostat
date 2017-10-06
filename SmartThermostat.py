@@ -1,5 +1,5 @@
 import bme280
-# import requests
+import requests
 import json
 from datetime import datetime
 
@@ -12,6 +12,8 @@ class SmartThermostat:
         self._temperature = 0
         self._pressure = 0
         self._humidity = 0
+
+        self._shipper = None
 
     def set_sensor_readings(self):
         # Gather data from sensors.
@@ -45,3 +47,11 @@ class SmartThermostat:
     def get_json_data(self):
         # Returns data in JSON format.
         return json.dumps(self._value_dic, indent=2)
+
+    def send_data(self, endpoint, payload):
+        # Create http request object, send data and display result.
+        self._shipper = requests.put(endpoint, data=payload, verify=False)
+
+        return self._shipper.content
+
+
